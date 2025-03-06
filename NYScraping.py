@@ -243,7 +243,7 @@ if __name__ == "__main__":
         config = json.load(f)
     
     frase_pesquisa = config["frase_pesquisa"]
-    categoria = config["categoria"]  # Neste caso, espera-se que seja "World"
+    categoria = config["categoria"]  
     numero_meses = config["numero_meses"]
     
     automacao_nytimes(frase_pesquisa, categoria, numero_meses)
