@@ -43,11 +43,15 @@ def automacao_nytimes(frase_pesquisa, categoria, numero_meses):
     driver = webdriver.Chrome(service=service, options=options)
     
     try:
-        # Define diretórios para salvar imagens, se necessário
+        # Define os diretórios para salvar imagens e o arquivo Excel
         current_dir = os.path.dirname(os.path.abspath(__file__))
         images_dir = os.path.join(current_dir, "imagens")
         if not os.path.exists(images_dir):
             os.makedirs(images_dir)
+        
+        output_dir = os.path.join(current_dir, "output")
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
         
         # 1. Acessa o site do NYTimes
         driver.get("https://www.nytimes.com/")
@@ -225,7 +229,8 @@ def automacao_nytimes(frase_pesquisa, categoria, numero_meses):
         df.sort_values("ordem", inplace=True)
         df.drop(columns=["ordem"], inplace=True)
         
-        excel_filename = "noticias_nytimes.xlsx"
+        # Define o caminho do arquivo Excel para a pasta "output"
+        excel_filename = os.path.join("output", "noticias_nytimes.xlsx")
         if os.path.exists(excel_filename):
             os.remove(excel_filename)
         df.to_excel(excel_filename, index=False)
@@ -243,7 +248,7 @@ if __name__ == "__main__":
         config = json.load(f)
     
     frase_pesquisa = config["frase_pesquisa"]
-    categoria = config["categoria"]  
+    categoria = config["categoria"]  # Neste caso, espera-se que seja "World"
     numero_meses = config["numero_meses"]
     
     automacao_nytimes(frase_pesquisa, categoria, numero_meses)
