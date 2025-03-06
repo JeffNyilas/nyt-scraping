@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+noticias_nytimes.xlsx
+imagens/
+output/
+meu_ambiente/
